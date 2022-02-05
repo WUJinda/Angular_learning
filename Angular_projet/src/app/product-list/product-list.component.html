@@ -1,0 +1,62 @@
+<h1 class="text-3xl font-bold">👋Bienvenue à nos produits !</h1>
+<br/>
+<!-- iterate over all items -->
+<div *ngFor="let item of items"
+    class="flex bg-gray-100 mt-6
+    cursor-pointer select-none
+    rounded-3xl transition duration-500
+    hover:shadow-lg
+    active:bg-blue-100" (click)="openDialog(item)">
+    <div class="p-5">
+        <img [src]="item.img" alt="product image">
+    </div>
+    <div class="flex-grow flex flex-col content-end p-4">
+        <!-- name -->
+        <div class="text-2xl font-bold text-gray-700">
+            {{item.name}}
+        </div>
+        <!-- description -->
+        <div class="text-sm mt-2 font-medium text-gray-500 flex-grow">
+            {{item.description}}
+        </div>
+        <!-- En stock or Sold out -->
+        <div class="text-xl font-semibold text-green-800">
+            {{item.dispo}}
+        </div>
+        <!-- price -->
+        <div>
+            <div class="text-xl text-right font-semibold text-red-500">
+                {{formatPrice(item.price)}}
+            </div>
+        </div>
+        
+        
+    </div>
+    
+    
+</div>
+<app-dialog [dialog]="isOpen">
+    <div *ngIf="itemSelected" class="bg-white p-4 sm:flex sm:items-start" >
+        <div>
+            <!-- Product Imgae -->
+            <div class="flex mx-auto items-center justify-center h-36 w-36 rounded-2xl bg-gray-200">
+                <img [src]="itemSelected.img" alt="product selected">
+            </div>
+            <!-- name&description -->
+            <div>
+                <h3 class="text-2xl font-bold text-gray-900">{{ itemSelected.name }}</h3>
+                <p class="mt-1 text-xs">{{ itemSelected.description }}</p>
+            </div>
+            <!-- price -->
+            <p class="mt-1 font-semibold text-red-500">{{ formatPrice(itemSelected.price) }}</p>
+        </div>
+        <!-- Close button -->
+        <div class="mt-3 sm:mt-0 sm:flex sm:flex-row-reverse flex-grow items-end">
+            <button type="button" class="transition duration-200 ease-in-out active:bg-red-700
+            hover:bg-red-500 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm
+            px-3 py-2 bg-white font-extrabold text-gray-700 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+            (click)="isOpen = false"> X </button>
+            
+          </div>
+    </div>
+</app-dialog>
